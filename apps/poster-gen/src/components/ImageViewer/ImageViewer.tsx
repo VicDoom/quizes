@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import styles from './ImageViewer.module.css';
-
 export const ImageViewer = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -16,7 +14,7 @@ export const ImageViewer = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         const result = reader.result;
-        if (typeof result === 'string') setPreviewUrl(reader.result);
+        if (typeof result === 'string') setPreviewUrl(reader.result as string);
       };
       reader.readAsDataURL(file);
     } else {
@@ -32,9 +30,12 @@ export const ImageViewer = () => {
           id="imageUpload"
           accept="image/*"
           onChange={handleFileChange}
-          className={styles.hiddenInput}
+          className="hidden"
         />
-        <label htmlFor="imageUpload" className={styles.customFileButton}>
+        <label
+          htmlFor="imageUpload"
+          className="inline-block px-6 py-3 bg-gray-600 text-white rounded-md cursor-pointer transition-colors duration-300 hover:bg-gray-700"
+        >
           <span aria-label="image-emoji" role="img">
             📁
           </span>{' '}
@@ -43,17 +44,21 @@ export const ImageViewer = () => {
       </div>
 
       {selectedImage && (
-        <div className={styles.fileDetails}>
-          <p className={styles.fileName}>{selectedImage.name}</p>
-          <p className={styles.fileSize}>
+        <div className="my-4 p-3 bg-gray-100 text-black rounded">
+          <p className="font-bold mb-1">{selectedImage.name}</p>
+          <p className="text-sm">
             {(selectedImage.size / 1024 / 1024).toFixed(2)} MB
           </p>
         </div>
       )}
 
       {previewUrl && (
-        <div className={styles.imagePreview}>
-          <img src={previewUrl} alt="Preview" className={styles.previewImage} />
+        <div className="mt-4 max-w-[1080px]">
+          <img
+            src={previewUrl}
+            alt="Preview"
+            className="w-full h-auto rounded border border-gray-300"
+          />
         </div>
       )}
     </div>
