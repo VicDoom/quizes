@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+      "*.css": "tailwindcss"
+    },
+    "tailwindCSS.includeLanguages": {
+      "plaintext": "html"
+    },
+    "css.lint.unknownAtRules": "ignore"
+}
