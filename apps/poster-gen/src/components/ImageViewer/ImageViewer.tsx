@@ -1,16 +1,18 @@
 import { useState } from 'react';
+import { useImageStore } from '@store';
 
 export const ImageViewer = () => {
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const { image, addImage } = useImageStore();
 
   const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (
     event
   ) => {
-    const file = event.target.files?.[0] ?? null;
-    setSelectedImage(file || selectedImage);
+    const file = event.target.files?.[0];
 
     if (file) {
+      addImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         const result = reader.result;
@@ -43,12 +45,10 @@ export const ImageViewer = () => {
         </label>
       </div>
 
-      {selectedImage && (
+      {image && (
         <div className="my-4 p-3 bg-gray-100 text-black rounded">
-          <p className="font-bold mb-1">{selectedImage.name}</p>
-          <p className="text-sm">
-            {(selectedImage.size / 1024 / 1024).toFixed(2)} MB
-          </p>
+          <p className="font-bold mb-1">{image.name}</p>
+          <p className="text-sm">{(image.size / 1024 / 1024).toFixed(2)} MB</p>
         </div>
       )}
 
