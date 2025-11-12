@@ -25,18 +25,31 @@ export const ImageViewer = () => {
   };
 
   return (
-    <div className="image-upload-container">
-      <div className="upload-section">
+    <div className="imageViewer">
+      {image && (
+        <div className="fileInfo">
+          <p className="fileTitle">{image.name}</p>
+          <p className="fileSubTitle">{(image.size / 1024 / 1024).toFixed(2)} MB</p>
+        </div>
+      )}
+
+      {previewUrl && (
+        <img
+            src={previewUrl}
+            alt="Preview"
+            className="image"
+          />
+      )}
+
+      <div className="fileButton">
         <input
           type="file"
           id="imageUpload"
           accept="image/*"
           onChange={handleFileChange}
-          className="hidden"
         />
         <label
           htmlFor="imageUpload"
-          className="inline-block px-6 py-3 bg-gray-600 text-white rounded-md cursor-pointer transition-colors duration-300 hover:bg-gray-700"
         >
           <span aria-label="image-emoji" role="img">
             📁
@@ -44,23 +57,6 @@ export const ImageViewer = () => {
           Выбрать изображение
         </label>
       </div>
-
-      {image && (
-        <div className="my-4 p-3 bg-gray-100 text-black rounded">
-          <p className="font-bold mb-1">{image.name}</p>
-          <p className="text-sm">{(image.size / 1024 / 1024).toFixed(2)} MB</p>
-        </div>
-      )}
-
-      {previewUrl && (
-        <div className="mt-4 max-w-[1080px]">
-          <img
-            src={previewUrl}
-            alt="Preview"
-            className="w-full h-auto rounded border border-gray-300"
-          />
-        </div>
-      )}
     </div>
   );
 };

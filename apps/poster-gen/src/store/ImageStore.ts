@@ -6,7 +6,7 @@ interface ImageStore {
     hasImage: boolean;
 }
 
-const useImageStore = (): ImageStore => useLocalObservable<ImageStore>(() => ({
+export const useImageStore = (): ImageStore => useLocalObservable<ImageStore>(() => ({
     image: null,
     
     addImage(image: File) {
@@ -17,5 +17,3 @@ const useImageStore = (): ImageStore => useLocalObservable<ImageStore>(() => ({
         return this.image !== null;
     }
 }));
-
-export default useImageStore;

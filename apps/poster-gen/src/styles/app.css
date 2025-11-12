@@ -1,0 +1,7 @@
+.root {
+  @apply h-screen dark:bg-gray-950 text-white;
+}
+
+.page {
+  @apply h-full text-center max-w-[1920px] px-[10%] py-[2%];
+}

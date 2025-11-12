@@ -12,8 +12,13 @@
       "vite/client"
     ],
     "rootDir": "src",
+    "baseUrl": ".",
     "paths": {
-      "@store/*": ["/src/store/*"]
+      "@components": ["./src/components/index.ts"],
+      "@components/*": ["./src/components/*"],
+      "@store": ["./src/store/index.ts"],
+      "@store/*": ["./src/store/*"],
+      "@/*": ["./src/*"]
     }
   },
   "exclude": [
