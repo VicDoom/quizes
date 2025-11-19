@@ -1,10 +1,27 @@
-import { ImageViewer } from '@components';
+import { ImageViewer, Multiform } from '@components';
+import { ImageStore, useImageStore } from '@store';
 
 export function App() {
+  const imageStore = useImageStore();
   return (
     <div className="root">
       <div className="page">
-        <ImageViewer />
+        <Multiform
+          externalStore={imageStore}
+          elements={[
+            {
+              id: 'image-viewer',
+              component: <ImageViewer />,
+              getNavigationState: (storeData?: ImageStore) => ({
+                canGoNext: !!storeData?.image,
+              }),
+            },
+            {
+              id: 'page-2',
+              component: <div>page 2</div>,
+            },
+          ]}
+        />
       </div>
     </div>
   );

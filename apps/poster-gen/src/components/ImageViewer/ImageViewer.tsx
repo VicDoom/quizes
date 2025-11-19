@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import { useImageStore } from '@store';
+import { observer } from 'mobx-react';
 
-export const ImageViewer = () => {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
+export const ImageViewer = observer(() => {
   const { image, addImage } = useImageStore();
+  const imageUrl = image && URL.createObjectURL(image);
 
   const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (
     event
@@ -14,13 +13,7 @@ export const ImageViewer = () => {
     if (file) {
       addImage(file);
       const reader = new FileReader();
-      reader.onloadend = () => {
-        const result = reader.result;
-        if (typeof result === 'string') setPreviewUrl(reader.result as string);
-      };
       reader.readAsDataURL(file);
-    } else {
-      setPreviewUrl(previewUrl ?? null);
     }
   };
 
@@ -33,9 +26,9 @@ export const ImageViewer = () => {
         </div>
       )}
 
-      {previewUrl && (
+      {imageUrl && (
         <img
-            src={previewUrl}
+            src={imageUrl}
             alt="Preview"
             className="image"
           />
@@ -59,4 +52,4 @@ export const ImageViewer = () => {
       </div>
     </div>
   );
-};
+});
