@@ -1,9 +1,15 @@
 import { useImageStore } from '@store';
 import { observer } from 'mobx-react';
+import { useEffect, useState } from 'react';
 
 export const ImageViewer = observer(() => {
   const { image, addImage } = useImageStore();
-  const imageUrl = image && URL.createObjectURL(image);
+
+  const [params, setParams] = useState<{
+    width: number;
+    height: number;
+    url: string;
+  } | null>(null);
 
   const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (
     event
@@ -17,18 +23,43 @@ export const ImageViewer = observer(() => {
     }
   };
 
+  useEffect(() => {
+    if (image) {
+      const img = new Image();
+      const url = URL.createObjectURL(image);
+      
+      img.onload = function() {
+        setParams({
+          width: img.width,
+          height: img.height,
+          url,
+        });
+      };
+      
+      img.onerror = function() {
+        console.error("Ошибка загрузки изображения");
+        URL.revokeObjectURL(url);
+      };
+      
+      img.src = url;
+    } else {
+      setParams(null);
+    }
+  }, [image])
+
   return (
     <div className="imageViewer">
       {image && (
         <div className="fileInfo">
           <p className="fileTitle">{image.name}</p>
           <p className="fileSubTitle">{(image.size / 1024 / 1024).toFixed(2)} MB</p>
+          <p>{params?.width} х {params?.height}</p>
         </div>
       )}
 
-      {imageUrl && (
+      {params?.url && (
         <img
-            src={imageUrl}
+            src={params?.url}
             alt="Preview"
             className="image"
           />
@@ -43,6 +74,7 @@ export const ImageViewer = observer(() => {
         />
         <label
           htmlFor="imageUpload"
+          className='button'
         >
           <span aria-label="image-emoji" role="img">
             📁

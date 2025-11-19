@@ -12,7 +12,7 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
 }) => {
   return (
-    <button id={id} disabled={disabled} onClick={onClick}>
+    <button className="button" id={id} disabled={disabled} onClick={onClick}>
       {label}
     </button>
   );

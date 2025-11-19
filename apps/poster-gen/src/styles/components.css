@@ -1,3 +1,11 @@
+.multiform {
+  @apply h-full flex flex-col gap-4 justify-center;
+
+  & > .multiform-controls {
+    @apply flex gap-4 justify-center;
+  }
+}
+
 .imageViewer {
   @apply h-full flex flex-col justify-center my-0 gap-4 items-center;
 }
@@ -5,9 +13,6 @@
 .fileButton {
   & > input {
     @apply hidden;
-  }
-  & > label {
-    @apply inline-block px-6 py-3 bg-gray-600 text-white rounded-md cursor-pointer transition-colors duration-300 hover:bg-gray-700;
   }
 }
 
@@ -24,5 +29,9 @@
 }
 
 .image {
-  @apply max-w-[1280px] max-h-[768px] rounded p-2 border-2 border-gray-100;
+  @apply max-w-[1280px] max-h-[700px] rounded p-2 border-2 border-gray-100;
+}
+
+.button {
+  @apply inline-block cursor-pointer px-6 py-3 bg-gray-500 text-white rounded-md transition-colors duration-300 hover:bg-gray-600 disabled:bg-gray-700;
 }
