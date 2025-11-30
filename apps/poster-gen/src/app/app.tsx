@@ -1,4 +1,4 @@
-import { ImageViewer, Multiform } from '@components';
+import { ImageEditor, ImageViewer, Multiform } from '@components';
 import { ImageStore, useImageStore } from '@store';
 
 export function App() {
@@ -18,7 +18,7 @@ export function App() {
             },
             {
               id: 'page-2',
-              component: <div>page 2</div>,
+              component: <ImageEditor />,
             },
           ]}
         />

@@ -5,6 +5,9 @@
   "dependencies": {
     "html-to-image": "^1.11.13"
   },
+  "devDependencies": {
+    "react-filerobot-image-editor": "4.9.1"
+  },
   "volta": {
     "node": "20.19.4"
   }
