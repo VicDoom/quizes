@@ -35,3 +35,23 @@
 .button {
   @apply inline-block cursor-pointer px-6 py-3 bg-gray-500 text-white rounded-md transition-colors duration-300 hover:bg-gray-600 disabled:bg-gray-700;
 }
+
+.modal {
+  @apply hidden absolute top-0 left-0 h-screen w-screen justify-center items-center
+}
+
+.modal-open {
+  @apply flex
+}
+
+.modal__overlay {
+  @apply absolute top-0 left-0 h-full w-full bg-gray-800 opacity-25 z-[0]
+}
+
+.modal__content {
+  @apply relative w-[1280px] h-[700px] rounded bg-neutral-200 z-[100]
+}
+
+.modal__close {
+  @apply absolute top-[-40px] right-0 cursor-pointer z-[100]
+}
