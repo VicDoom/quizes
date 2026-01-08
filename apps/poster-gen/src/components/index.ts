@@ -3,3 +3,4 @@ export * from './ImageViewer';
 export * from './ImageEditor';
 export * from './Multiform';
 export * from './Modal';
+export * from './ImageCropper';

@@ -10,6 +10,14 @@
   @apply h-full flex flex-col justify-center my-0 gap-4 items-center;
 }
 
+.image-editor {
+  @apply flex gap-4 justify-center items-center max-h-[700px] h-full;
+} 
+
+.image-editor__toolbar {
+  @apply flex flex-col gap-4 rounded p-1 border-2 border-gray-500 h-full;
+}
+
 .fileButton {
   & > input {
     @apply hidden;
@@ -45,11 +53,11 @@
 }
 
 .modal__overlay {
-  @apply absolute top-0 left-0 h-full w-full bg-gray-800 opacity-25 z-[0]
+  @apply absolute top-0 left-0 h-full w-full bg-gray-800 opacity-75 z-[0]
 }
 
 .modal__content {
-  @apply relative w-[1280px] h-[700px] rounded bg-neutral-200 z-[100]
+  @apply relative w-[1280px] h-[700px] rounded bg-sky-50 z-[100]
 }
 
 .modal__close {
