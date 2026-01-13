@@ -48,7 +48,7 @@ export const ImageViewer = observer(() => {
   }, [image])
 
   return (
-    <div className="imageViewer">
+    <div className="image-viewer">
       {image && (
         <div className="fileInfo">
           <p className="fileTitle">{image.name}</p>

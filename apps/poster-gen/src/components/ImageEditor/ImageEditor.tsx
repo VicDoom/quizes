@@ -1,19 +1,33 @@
-import { useCanvasText } from '@/hooks';
+import { useCanvas } from '@/hooks';
 import { ImageCropper, Modal } from '@components';
 import { useImageStore } from '@store';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export const ImageEditor = () => {
   const { image, addImage } = useImageStore();
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   
+  const [imageUrl, setImageUrl] = useState<string>('')
   const [cropModalOpen, setCropModalOpen] = useState(false);
   const setCrop = (image: File) => {
     addImage(image);
     setCropModalOpen(false);
   }
 
-  const { addText } = useCanvasText(canvasRef.current)
+  const { addText, drawImage, isCanvasReady } = useCanvas(canvasRef.current)
+
+  useEffect(() => {
+    if (!image) return;
+    const url = URL.createObjectURL(image);
+    setImageUrl(url);
+    return () => URL.revokeObjectURL(url);
+  }, [image]);
+
+  useEffect(() => {
+    if (isCanvasReady && imageUrl) {
+      drawImage(imageUrl);
+    }
+  }, [isCanvasReady, drawImage, imageUrl]);
 
   return (
     <div className="image-editor">
@@ -25,12 +39,7 @@ export const ImageEditor = () => {
           <img src='/icons/text.svg' alt='text' onClick={addText} />
         </button>
       </div>
-      <img
-        className="image-editor__view image"
-        src={image ? URL.createObjectURL(image) : ''}
-        alt="edit-image"
-      />
-      <canvas ref={canvasRef} />
+      <canvas className='image-editor__view image' ref={canvasRef} />
       <Modal open={cropModalOpen} onChange={setCropModalOpen}>
         <ImageCropper image={image} setImage={setCrop} />
       </Modal>

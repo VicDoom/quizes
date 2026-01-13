@@ -6,7 +6,7 @@
   }
 }
 
-.imageViewer {
+.image-viewer {
   @apply h-full flex flex-col justify-center my-0 gap-4 items-center;
 }
 
