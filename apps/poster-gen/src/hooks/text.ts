@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 export const useCanvas = (canvasInstance: HTMLCanvasElement | null) => {
   const fabricCanvas = useRef<Canvas>(null);
   const [isCanvasReady, setIsCanvasReady] = useState(false);
+  const [isImageDrawn, setIsImageDrawn] =useState(false);
 
   useEffect(() => {
     if (!canvasInstance) {
@@ -73,6 +74,7 @@ export const useCanvas = (canvasInstance: HTMLCanvasElement | null) => {
 
   const drawImage = useCallback(
     async (imageUrl: string) => {
+      setIsImageDrawn(false);
       const canvas = fabricCanvas.current;
 
       if (!isCanvasReady || !canvas) {
@@ -105,6 +107,7 @@ export const useCanvas = (canvasInstance: HTMLCanvasElement | null) => {
 
         canvas?.add(img);
         canvas?.renderAll();
+        setIsImageDrawn(true)
       } catch (error) {
         console.error('Ошибка загрузки изображения:', error);
       }
@@ -115,6 +118,7 @@ export const useCanvas = (canvasInstance: HTMLCanvasElement | null) => {
   return {
     addText,
     drawImage,
-    isCanvasReady
+    isCanvasReady,
+    isImageDrawn,
   };
 };

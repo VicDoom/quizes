@@ -5,12 +5,18 @@ import { makeAutoObservable } from 'mobx';
 export class ImageStore {
   image: File | null = null;
 
+  imageDimensions = { width: 0, height: 0 };
+
   constructor() {
     makeAutoObservable(this);
   }
 
   addImage = (image: File) => {
     this.image = image;
+  };
+
+  setDimensions = (dimensions: { width: number; height: number }) => {
+    this.imageDimensions = dimensions;
   };
 
   get hasImage() {

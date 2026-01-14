@@ -18,6 +18,12 @@
   @apply flex flex-col gap-4 rounded p-1 border-2 border-gray-500 h-full;
 }
 
+.image-editor__view {}
+
+.image-editor__view-hidden {
+  @apply invisible
+}
+
 .fileButton {
   & > input {
     @apply hidden;
@@ -62,4 +68,16 @@
 
 .modal__close {
   @apply absolute top-[-40px] right-0 cursor-pointer z-[100]
+}
+
+.loader-wrapper {
+  @apply relative flex justify-center items-center
+}
+
+.loader {
+  @apply invisible absolute w-[96px] h-[96px] border-4 border-gray-700 border-gray-500 border-t-sky-50 rounded-full animate-spin
+}
+
+.loader-active {
+  @apply visible
 }

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { useEffect, useState } from 'react';
 
 export const ImageViewer = observer(() => {
-  const { image, addImage } = useImageStore();
+  const { image, addImage, setDimensions } = useImageStore();
 
   const [params, setParams] = useState<{
     width: number;
@@ -27,43 +27,42 @@ export const ImageViewer = observer(() => {
     if (image) {
       const img = new Image();
       const url = URL.createObjectURL(image);
-      
-      img.onload = function() {
+
+      img.onload = function () {
         setParams({
           width: img.width,
           height: img.height,
           url,
         });
+        setDimensions({ width: img.width, height: img.height });
       };
-      
-      img.onerror = function() {
-        console.error("Ошибка загрузки изображения");
+
+      img.onerror = function () {
+        console.error('Ошибка загрузки изображения');
         URL.revokeObjectURL(url);
       };
-      
+
       img.src = url;
     } else {
       setParams(null);
     }
-  }, [image])
+  }, [image]);
 
   return (
     <div className="image-viewer">
       {image && (
         <div className="fileInfo">
           <p className="fileTitle">{image.name}</p>
-          <p className="fileSubTitle">{(image.size / 1024 / 1024).toFixed(2)} MB</p>
-          <p>{params?.width} х {params?.height}</p>
+          <p className="fileSubTitle">
+            {(image.size / 1024 / 1024).toFixed(2)} MB
+          </p>
+          <p>
+            {params?.width} х {params?.height}
+          </p>
         </div>
       )}
 
-      {params?.url && (
-        <img
-            src={params?.url}
-            alt="Preview"
-            className="image"
-          />
-      )}
+      {params?.url && <img src={params?.url} alt="Preview" className="image" />}
 
       <div className="fileButton">
         <input
@@ -72,10 +71,7 @@ export const ImageViewer = observer(() => {
           accept="image/*"
           onChange={handleFileChange}
         />
-        <label
-          htmlFor="imageUpload"
-          className='button'
-        >
+        <label htmlFor="imageUpload" className="button">
           <span aria-label="image-emoji" role="img">
             📁
           </span>{' '}

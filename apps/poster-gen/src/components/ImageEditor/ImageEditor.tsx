@@ -4,17 +4,19 @@ import { useImageStore } from '@store';
 import { useEffect, useRef, useState } from 'react';
 
 export const ImageEditor = () => {
-  const { image, addImage } = useImageStore();
+  const { image, addImage, imageDimensions } = useImageStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-  const [imageUrl, setImageUrl] = useState<string>('')
+
+  const [imageUrl, setImageUrl] = useState<string>('');
   const [cropModalOpen, setCropModalOpen] = useState(false);
   const setCrop = (image: File) => {
     addImage(image);
     setCropModalOpen(false);
-  }
+  };
 
-  const { addText, drawImage, isCanvasReady } = useCanvas(canvasRef.current)
+  const { addText, drawImage, isImageDrawn, isCanvasReady } = useCanvas(
+    canvasRef.current
+  );
 
   useEffect(() => {
     if (!image) return;
@@ -35,11 +37,19 @@ export const ImageEditor = () => {
         <button className="button" onClick={() => setCropModalOpen(true)}>
           <img src="/icons/crop.svg" alt="crop" />
         </button>
-        <button className='button'>
-          <img src='/icons/text.svg' alt='text' onClick={addText} />
+        <button className="button">
+          <img src="/icons/text.svg" alt="text" onClick={addText} />
         </button>
       </div>
-      <canvas className='image-editor__view image' ref={canvasRef} />
+      <div style={{ ...imageDimensions }} className='loader-wrapper'>
+        <div className={`loader ${!isImageDrawn && 'loader-active'}`}></div>
+        <canvas
+          className={`image-editor__view ${
+            !isImageDrawn && 'image-editor__view-hidden'
+          } image`}
+          ref={canvasRef}
+        />
+      </div>
       <Modal open={cropModalOpen} onChange={setCropModalOpen}>
         <ImageCropper image={image} setImage={setCrop} />
       </Modal>
