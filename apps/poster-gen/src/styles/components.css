@@ -15,7 +15,7 @@
 } 
 
 .image-editor__toolbar {
-  @apply flex flex-col gap-4 rounded p-1 border-2 border-gray-500 h-full;
+  @apply flex flex-col gap-4 rounded p-1 border-2 border-gray-500 h-full min-w-[80px];
 }
 
 .image-editor__view {
