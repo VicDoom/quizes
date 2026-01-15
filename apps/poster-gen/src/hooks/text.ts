@@ -122,7 +122,8 @@ export const useCanvas = (canvasInstance: HTMLCanvasElement | null) => {
           originY: 'top',
         });
 
-        canvas?.add(img);
+        canvas.backgroundImage = img;
+      
         canvas?.renderAll();
         setIsImageDrawn(true);
       } catch (error) {
