@@ -42,7 +42,7 @@ export const ImageEditor = () => {
         </button>
       </div>
       <div className="loader-wrapper">
-        <div className={`loader ${!isImageDrawn && 'loader-active'}`}></div>
+        <div className={`loader ${!isImageDrawn ? 'loader-active' : ''}`}></div>
         <canvas
           className={`image-editor__view ${
             !isImageDrawn && 'image-editor__view-hidden'

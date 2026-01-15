@@ -77,9 +77,9 @@
 }
 
 .loader {
-  @apply invisible absolute w-[96px] h-[96px] border-4 border-gray-700 border-gray-500 border-t-sky-50 rounded-full animate-spin
+  @apply hidden absolute w-[96px] h-[96px] border-4 border-gray-700 border-gray-500 border-t-sky-50 rounded-full animate-spin
 }
 
 .loader-active {
-  @apply visible
+  @apply block
 }
