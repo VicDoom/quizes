@@ -41,7 +41,7 @@ export const ImageEditor = () => {
           <img src="/icons/text.svg" alt="text" onClick={addText} />
         </button>
       </div>
-      <div style={{ ...imageDimensions }} className='loader-wrapper'>
+      <div className="loader-wrapper">
         <div className={`loader ${!isImageDrawn && 'loader-active'}`}></div>
         <canvas
           className={`image-editor__view ${

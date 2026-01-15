@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 export const useCanvas = (canvasInstance: HTMLCanvasElement | null) => {
   const fabricCanvas = useRef<Canvas>(null);
   const [isCanvasReady, setIsCanvasReady] = useState(false);
-  const [isImageDrawn, setIsImageDrawn] =useState(false);
+  const [isImageDrawn, setIsImageDrawn] = useState(false);
 
   useEffect(() => {
     if (!canvasInstance) {
@@ -44,7 +44,7 @@ export const useCanvas = (canvasInstance: HTMLCanvasElement | null) => {
       console.warn('Canvas is not rendered yet');
       return;
     }
-  
+
     const text = 'example';
     const fontSize = 32;
     const textColor = '#FF00000';
@@ -93,21 +93,38 @@ export const useCanvas = (canvasInstance: HTMLCanvasElement | null) => {
 
         canvas?.clear();
 
-        const width = imgEl.width;
-        const height = imgEl.height;
+        const maxWidth = 1280;
+        const maxHeight = 720;
+        canvas?.setDimensions({ width: maxWidth, height: maxHeight });
 
-        canvas?.setDimensions({ width, height });
+        const imgRatio = imgEl.width / imgEl.height;
+        const canvasRatio = maxWidth / maxHeight;
+
+        let scale = 1;
+
+        if (imgRatio > canvasRatio) {
+          scale = maxWidth / imgEl.width;
+        } else {
+          scale = maxHeight / imgEl.height;
+        }
+
+        const scaledWidth = imgEl.width * scale; // измеряем новую ширину с коэффициентом
+        const scaledHeight = imgEl.height * scale;
 
         img.set({
-          left: width / 2,
-          top: height / 2,
+          scaleX: scale,
+          scaleY: scale,
+          left: (maxWidth - scaledWidth) / 2, // центрируем по ширине
+          top: (maxHeight - scaledHeight) / 2, 
           selectable: false,
           evented: false,
+          originX: 'left',
+          originY: 'top',
         });
 
         canvas?.add(img);
         canvas?.renderAll();
-        setIsImageDrawn(true)
+        setIsImageDrawn(true);
       } catch (error) {
         console.error('Ошибка загрузки изображения:', error);
       }

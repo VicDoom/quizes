@@ -18,7 +18,9 @@
   @apply flex flex-col gap-4 rounded p-1 border-2 border-gray-500 h-full;
 }
 
-.image-editor__view {}
+.image-editor__view {
+  @apply max-w-[1280px] max-h-[720px]
+}
 
 .image-editor__view-hidden {
   @apply invisible
@@ -43,7 +45,7 @@
 }
 
 .image {
-  @apply max-w-[1280px] max-h-[700px] rounded p-2 border-2 border-gray-100;
+  @apply max-w-[1280px] max-h-[720px] rounded p-2 border-2 border-gray-100;
 }
 
 .button {
